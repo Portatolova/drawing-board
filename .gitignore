@@ -1,0 +1,7 @@
+node_modules
+static/node_modules
+package-lock.json
+.DS_STORE
+build/
+app/SSL/*
+app/api/auth/keys/*

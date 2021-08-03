@@ -1,0 +1,175 @@
+.bg {
+    background-image: url("/assets/faq1.svg");
+    width: 80vw;
+    height: 80vh;
+    padding: 10vh 10vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    &>header {
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+
+        &>a {
+            color: #29292c;
+            text-decoration: none;
+            font-size: 2.5vh;
+            margin: 0 20px;
+            &>h1 {
+                font-family: 'Sigmar One', cursive;
+                text-transform: uppercase;
+                font-size: 4vh;
+                letter-spacing: 5px;
+                margin: 5px 0;
+                user-select: none;
+                margin-right: 20px;
+                margin-left: -20px;
+            }
+        }
+
+        &>a:hover {
+            //text-decoration: underline;
+            color: #707070;
+        }
+    }
+
+    &>div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 5vh 0 10vh 0;
+        align-items: flex-start;
+
+        & a {
+            color: black;
+            &:hover { color: grey; }
+        }
+        & h1 {
+            font-size: 5vh;
+            letter-spacing: 2px;
+        }
+        & h3 {
+            font-size: 3.5vh;
+            margin: 0;
+            margin-top: 20px;
+        }
+        & p, & li {
+            font-size: 2.5vh;
+            margin: 1em 0;
+        }
+
+        &>div {
+            display: flex;
+            align-items: center;
+            &>p {
+                margin-left: 30px;
+            }
+        }
+        & table {
+            width: 100%;
+            border: 2px solid #29292c;
+            & th, & td {
+                font-size: 20px;
+                padding: 10px 0;
+                border: 2px solid #29292c;
+            }
+
+            & p {
+                font-size: 2vh;
+            }
+
+            & td {
+                padding: 20px 20px;
+                &>div {
+                    display: flex;
+                    align-items: center;
+
+                    &>img {
+                        border-radius: 20px;
+                        width: 100px;
+                        height: 100px;
+                        min-width: 100px;
+                    }
+
+                    &>span {
+                        margin-left: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.boardHolder {
+    width: 100%;
+    align-items: flex-start !important;
+    white-space: nowrap;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        height: 16px;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: grey;
+    }
+    &::-webkit-scrollbar-track {
+        background: #ccc;
+        border-radius: 5px;
+    }
+}
+
+.board {
+    background-color: #2B2D42;
+    min-height: 200px;
+    min-width: 300px;
+    width: 300px;
+    height: 200px;
+    border-radius: 30px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    margin: 10px;
+    &:hover {
+        filter: drop-shadow(0 0 5px #707070);
+        cursor: pointer;
+    }
+    &:active {
+        filter: none;
+    }
+    &>div {
+        width: 300px;
+        min-height: calc(300px/16*9);
+        background-color: white;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    &>span {
+        color: white;
+        font-size: 2vh;
+        margin-top: calc(((100% - (300px/16*9)) - 100px)/2);
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &>textarea {
+        padding: 10px 20px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 20px;
+        width: calc(100% - 40px);
+        border: 1px solid grey;
+        margin: 5px 0px 0px 0px;
+        outline: none;
+        height: 100px;
+    }
+}

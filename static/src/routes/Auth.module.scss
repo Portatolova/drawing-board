@@ -1,0 +1,49 @@
+.bg {
+    background-image: url("/assets/auth.svg");
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &>h1 {
+        font-family: 'Sigmar One', cursive;
+        text-transform: uppercase;
+        font-size: 7vh;
+        color: #707070;
+        letter-spacing: 5px;
+        margin-bottom: 5px;
+        user-select: none;
+    }
+    &>h3 {
+        text-align: center;
+        font-size: 3vh;
+        font-weight: lighter;
+        margin: 10px 0;
+        margin-bottom: 35px;
+        user-select: none;
+    }
+    &>span {
+        color: grey;
+        font-size: 2vh;
+        margin: 25px;
+        user-select: none;
+        &>u {
+            cursor: pointer;
+            &:hover {
+                text-decoration: none;
+            }
+            &:active {
+                color: #AAAAAA
+            }
+        }
+    }
+}
+
+.inputBox {
+    display: flex;
+    justify-content: center;
+}

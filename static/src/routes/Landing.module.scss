@@ -1,0 +1,51 @@
+.bg {
+    background-image: url("/assets/bg2.svg");
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &>h1 {
+        font-family: 'Sigmar One', cursive;
+        text-transform: uppercase;
+        font-size: 7vh;
+        color: #707070;
+        letter-spacing: 5px;
+        margin-bottom: 5px;
+    }
+    &>span {
+        text-align: center;
+        font-size: 3.5vh;
+        font-weight: lighter;
+        margin: 10px 0;
+    }
+}
+
+.buttonDiv {
+    display: flex;
+}
+
+.getStartedBtn {
+    background-color: #92DCE5;
+    border: 5px solid #92DCE5;
+    width: 250px;
+}
+
+.loginBtn {
+    background-color: #F7EC59;
+    border: 5px solid #F7EC59;
+    width: 180px;
+    margin-left: 30px;
+}
+
+.getStartedBtn:active {
+    background-color: #92DCE5;
+}
+
+.loginBtn:active {
+    background-color: #F7EC59;
+}

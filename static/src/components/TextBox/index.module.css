@@ -1,0 +1,19 @@
+.input {
+    padding: 10px 20px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    width: calc(100% - 40px);
+    border: 1px solid grey;
+    margin: 5px 0px 0px 0px;
+    outline: none;
+}
+
+.input:focus {
+    border: 1px solid #92DCE5;
+}
+
+.moreText {
+    margin-top: 25px;
+    margin-left: 30px;
+    position: absolute;
+}

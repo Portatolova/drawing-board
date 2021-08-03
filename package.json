@@ -1,0 +1,45 @@
+{
+  "name": "drawingboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"PORT=443 ts-node-dev --respawn --transpile-only ./app/\" \"cd static && npm start\"",
+    "setup": "npm i; cd static; npm i",
+    "generate-keys": "ssh-keygen -t rsa -f ./app/api/auth/keys -q;openssl req -x509 -newkey rsa:4096 -keyout ./app/SSL/key.pem -out ./app/SSL/cert.pem -days 365 -nodes",
+    "build": "rm -rf ./build && tsc && cp -R ./app/api/auth/keys ./build/api/auth/ && cp -R ./app/SSL/ ./build/SSL/ && cd static && npm run build",
+    "prod": "NODE_ENV=PRODUCTION node ./build/index.js"
+  },
+  "author": "Carl Ian Voller",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.12",
+    "@types/express-http-proxy": "^1.6.1",
+    "@types/fabric": "^4.5.0",
+    "@types/jsonwebtoken": "^8.5.2",
+    "@types/node": "^15.6.1",
+    "@types/sharedb": "^1.0.19",
+    "@types/socket.io": "^3.0.2",
+    "@types/ws": "^7.4.7",
+    "concurrently": "^6.2.0",
+    "ts-node-dev": "^1.1.6"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "canvas": "^2.8.0",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.2",
+    "fabric": "^4.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.15",
+    "react-scripts": "^4.0.3",
+    "sharedb": "^1.9.1",
+    "sharedb-mongo": "^1.0.0-beta.20",
+    "socket.io": "^4.1.2",
+    "typescript": "^3.7.5",
+    "websocket-json-stream": "0.0.3",
+    "ws": "^8.0.0"
+  }
+}

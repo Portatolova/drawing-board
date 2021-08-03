@@ -1,0 +1,58 @@
+
+.btn {
+    padding: 10px 35px;
+    margin-top: 40px;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    cursor: pointer;
+    color: black;
+    background-color: #92DCE5;
+    border: 5px solid #92DCE5;
+    width: 180px;
+    
+    & > span {
+        font-size: 1.5em;
+        font-weight: 200;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 300;
+    }
+
+    & > div {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 0;
+        transition: 0.2s;
+        overflow: hidden;
+        & > i {
+            font-size: 32px;
+        }
+    }
+}
+
+.btn:hover {
+    background-color: #00000000;
+    filter: drop-shadow(0 0 20px grey);
+    & > div {
+        width: 30px;
+        margin-left: 10px;
+    }
+    transition: .1s;
+}
+
+.btn:active {
+    background-color: #92DCE5;
+    filter: none;
+    transition: .1;
+}
+
+.btn:hover:disabled {
+    color: black;
+    background-color: #92DCE5;
+    filter: none;
+    & > div { width: 0; margin-left: unset }
+}
