@@ -10,6 +10,7 @@ import signup from './signup';
 import login from './login';
 import logout from "./logout";
 import verifyToken, { vT } from "./verifyToken";
+import name from './name';
 
 const router: Router = Router();
 
@@ -17,6 +18,7 @@ const router: Router = Router();
 router.post("/signup", signup);
 router.post("/login", login);
 router.get("/logout", vT, logout);
+router.get("/name", name);
 
 router.post("/verifyToken", verifyToken);
 

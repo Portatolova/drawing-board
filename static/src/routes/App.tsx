@@ -69,7 +69,7 @@ class App extends Component<Props, State> {
         const [modalState, setModalState] = this.context;
 
         if (!name) {
-            let { data } = await Axios.get("https://codecollab.io/api/auth/name");
+            let { data } = await Axios.get("/api/auth/name");
             window.name = data.name;
         } else {
             window.name = name;
