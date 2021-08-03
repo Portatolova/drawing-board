@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"PORT=443 ts-node-dev --respawn --transpile-only ./app/\" \"cd static && npm start\"",
     "setup": "npm i; cd static; npm i",
-    "generate-keys": "ssh-keygen -t rsa -f ./app/api/auth/keys -q;openssl req -x509 -newkey rsa:4096 -keyout ./app/SSL/key.pem -out ./app/SSL/cert.pem -days 365 -nodes",
+    "generate-keys": "mkdir ./app/api/auth/keys; ssh-keygen -t rsa -f ./app/api/auth/keys/tmp -q;mv ./app/api/auth/keys/tmp ./app/api/auth/keys/private.key;mv ./app/api/auth/keys/tmp.pub ./app/api/auth/keys/public.key;openssl req -x509 -newkey rsa:4096 -keyout ./app/SSL/key.pem -out ./app/SSL/cert.pem -days 365 -nodes",
     "build": "rm -rf ./build && tsc && cp -R ./app/api/auth/keys ./build/api/auth/ && cp -R ./app/SSL/ ./build/SSL/ && cd static && npm run build;",
     "build-docker": "rm -rf ./build ./node_modules ./static/node_modules; docker build --platform amd64 -t 'drawing-board' .",
     "prod": "NODE_ENV=PRODUCTION node ./build/index.js"
