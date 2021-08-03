@@ -12,8 +12,6 @@ import fs from "fs";
 
 async function signup(req: express.Request, res: express.Response, next: express.NextFunction) {
 
-    console.log(req.body)
-
     // Check if required parameters are set. Then obtain IP temporarily to determine country of origin.
     if(!req.body.u || !req.body.e || !req.body.p) { return res.status(400).end("One or more fields are blank."); }
 

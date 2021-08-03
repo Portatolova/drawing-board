@@ -10,8 +10,6 @@ import { User } from "./models/user.model";
 
 function revokeToken(req: express.Request, res: express.Response, next: express.NextFunction) {
 
-    console.log(req.body.auth)
-
     let token = req.query.token || req.body.token;
 
     // Check if user is authenticated. (If user isn't, there are no tokens to return.)
@@ -33,9 +31,6 @@ function revokeToken(req: express.Request, res: express.Response, next: express.
             break;
         }
     }
-
-    console.log(token);
-    console.log(tokens);
 
     User.findByIdAndUpdate({ _id: req.body.auth.ui._id }, { keys: tokens }).then(() => {
         return res.redirect("/");

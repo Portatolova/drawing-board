@@ -1,5 +1,3 @@
-import { Request, Response, NextFunction } from "express";
-import { createCanvas } from "canvas";
 import { fabric } from "fabric";
 
 async function convertJSONToPNG(json: any) {

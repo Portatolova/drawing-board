@@ -8,7 +8,8 @@
     "dev": "concurrently \"PORT=443 ts-node-dev --respawn --transpile-only ./app/\" \"cd static && npm start\"",
     "setup": "npm i; cd static; npm i",
     "generate-keys": "ssh-keygen -t rsa -f ./app/api/auth/keys -q;openssl req -x509 -newkey rsa:4096 -keyout ./app/SSL/key.pem -out ./app/SSL/cert.pem -days 365 -nodes",
-    "build": "rm -rf ./build && tsc && cp -R ./app/api/auth/keys ./build/api/auth/ && cp -R ./app/SSL/ ./build/SSL/ && cd static && npm run build",
+    "build": "rm -rf ./build && tsc && cp -R ./app/api/auth/keys ./build/api/auth/ && cp -R ./app/SSL/ ./build/SSL/ && cd static && npm run build; cd ../; docker build --platform amd64 -t 'drawing-board' .",
+    "build-app": "rm -rf ./build && tsc && cp -R ./app/api/auth/keys ./build/api/auth/ && cp -R ./app/SSL/ ./build/SSL/ && cd static && npm run build;",
     "prod": "NODE_ENV=PRODUCTION node ./build/index.js"
   },
   "author": "Carl Ian Voller",

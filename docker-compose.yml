@@ -1,0 +1,30 @@
+#
+#  Deploy Drawing Board.
+#  $ docker-compose up
+#
+
+version: '3.7'
+services: 
+  drawingboard-mongo:
+    container_name: drawingboard-mongo
+    image: mongo
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--port", "27017", "--dbpath", "/data/db" ]
+    ports:
+    - "27180:27017"
+    restart: always
+    volumes:
+    - "../db:/data/db"
+
+  drawingboard-app:
+    container_name: drawingboard-app
+    image: drawing-board
+    ports:
+    - "8420:8443"
+    restart: always
+    depends_on: 
+      - "drawingboard-mongo"
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "1"
+            max-size: "1m"

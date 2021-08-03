@@ -46,7 +46,6 @@ function vTFunc(req: express.Request, res: express.Response, next: express.NextF
     // Do not verify token if request is for uploadFile.
     if(req.headers['content-type'] && req.headers['content-type']!.split(" ").indexOf("multipart/form-data") > -1) { return next(); }
     
-    console.log(req.query)
     // Checks if token exists.
     if(!req.body.token && !req.query.token) {
         // Token was not specified in request, pass request to main function.

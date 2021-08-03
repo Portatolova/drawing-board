@@ -13,7 +13,6 @@
 import express from "express";
 import proxy from "express-http-proxy";
 import https from "https";
-import http from "http";
 import fs from "fs";
 import mongoose from "mongoose";
 import path from "path";
@@ -26,8 +25,7 @@ import { IO } from "./io";
 import { Connect } from "./share";
 
 const app: express.Application = express();
-const PORT: Number = 80;
-const HTTPS: Number = 443;
+const HTTPS: Number = 8443;
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -59,10 +57,8 @@ const httpsServer: https.Server = https.createServer(
   },
   app
 );
-const httpServer: http.Server = http.createServer(app);
 
 // Listen on PORT
-httpServer.listen(PORT, () => console.log(`API listening on port ${PORT}`));
 httpsServer.listen(HTTPS, () =>
   console.log(`HTTPS API listening on port ${HTTPS}`)
 );

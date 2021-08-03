@@ -34,8 +34,6 @@ export const Connect = (wss: Server) => {
         // Convert connection to stream and attach to shareDB.
         let stream = new WebSocketJSONStream(ws);
 
-        console.log("CONNECT " + new Date().getTime())
-
         share.listen(stream);
 
         ws.on('error', (error) => console.error(error));
