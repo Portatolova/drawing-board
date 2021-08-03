@@ -28,6 +28,7 @@ interface State {
     fillColor: string;
     fillEnabled: boolean;
     name: string;
+    connected: boolean;
 }
 
 let ui: { id: string; username: string; email: string; token: string; };
@@ -50,9 +51,9 @@ class App extends Component<Props, State> {
             scale = widthScale < heightScale ? widthScale : heightScale;
 
         window.name = "";
-        this.state = { name: "", tool: Tools.Pencil, cursors: {}, scale, previews: [], pos: 0, justMoved: "", lineColor: "#000000", fillColor: "#000000", fillEnabled: false }
+        this.state = { name: "", tool: Tools.Pencil, cursors: {}, scale, previews: [], pos: 0, justMoved: "", lineColor: "#000000", fillColor: "#000000", fillEnabled: false, connected: true }
 
-        this.s = io("/", { query: { id: get("board") || "" }, path: "/run" });
+        this.s = io("/", { query: { id: get("board") || "" }, path: "/run", transports: ["websocket", "polling"] });
         this.sketch = createRef<any>();
 
         this.onSketchChange = this.onSketchChange.bind(this);
@@ -111,12 +112,20 @@ class App extends Component<Props, State> {
 		});
 
 		window.addEventListener("keydown", (e) => {
-			if (e.keyCode === 8) { sketch.current.removeSelected(); }
+			if (e.keyCode === 8) { sketch.current.removeSelected(); this.onSketchChange(); }
 			if ((e.ctrlKey || e.metaKey) && e.key === 'z' && sketch.current.canUndo()) { sketch.current.undo(); }
 			if ((e.ctrlKey || e.metaKey) && e.key === 'x' && sketch.current.canRedo()) { sketch.current.redo(); }
 		});
 
 		window.addEventListener('resize', this.onResize);
+
+        this.s.on('connect', () => {
+            this.setState({ connected: true });
+        });
+
+        this.s.on('disconnect', () => {
+            this.setState({ connected: false });
+        });
 
         // Handles collaborative cursors
         this.s.on('cursor', ({ id, x, y, name, posNo }) => {
@@ -247,20 +256,11 @@ class App extends Component<Props, State> {
 
 		if (!sketchState.lastSketch || sketchState.lastSketch.type) { return; }*/
 
-        let a = new Date().getTime();
         if (JSON.stringify(this.doc.data.objects) === JSON.stringify(this.sketch.current.toJSON().objects)) { return; }
-        console.log(new Date().getTime() - a);
 
-        console.log("SKETCH CHANGE")
-
-        a = new Date().getTime();
 		let ops = detectChange(this.doc.data, this.sketch.current.toJSON());
-        console.log(new Date().getTime() - a);
 
         if (ops.length === 0) { return; }
-
-        console.log("Submitting Op");
-        console.log(ops);
 
         this.doc?.submitOp(ops, { source: true }, (err) => {
             if (err) throw err;
@@ -268,7 +268,6 @@ class App extends Component<Props, State> {
             this.s.emit("draw", this.state.pos);
 
             if (this.sketch.current.toJSON().objects.length !== this.doc?.data.objects.length) {
-                console.log('diff');
                 this.suppress = true;
                 this.sketch.current.fromJSON(this.doc?.data);
                 this.suppress = false;
@@ -358,10 +357,11 @@ class App extends Component<Props, State> {
 
     render() {
 
-        const { tool, cursors, pos, previews, scale, justMoved, lineColor, fillColor, fillEnabled } = this.state;
+        const { tool, cursors, pos, previews, scale, justMoved, lineColor, fillColor, fillEnabled, connected } = this.state;
         const sketch = this.sketch;
 
-        return (<>
+        return (<div className={styles.page} style={{ height: window.innerHeight }}>
+            <div style={{ height: window.innerHeight, display: connected ? 'none' : 'flex' }} className={styles.disconnected}><h1>Disconnected</h1><p>Check your connection.<br />If you believe your connection is stable, try reloading the page.</p></div>
             <NameModal name={this.state.name} onChange={(name) => this.setState({ name })} submit={this.submitName} />
             <ToolBar fillEnabled={this.state.fillEnabled} tool={tool} sketch={sketch} setState={(s) => this.setState(s)} push={(l) => window.location.pathname = l} />
             {Object.keys(cursors).map(id => <div className={`${styles.cursor} ${justMoved === id ? "" : styles.cursorJustMoved}`} style={{ left: cursors[id]?.x, top: cursors[id]?.y }}>
@@ -399,7 +399,7 @@ class App extends Component<Props, State> {
                     <i className="material-icons">add</i>
                 </div>
             </div>
-        </>);
+        </div>);
     }
 }
 

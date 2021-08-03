@@ -11,7 +11,7 @@ function Landing() {
         <h1>Drawing Board</h1>
         <span>Drawings just got<br />a lot more collaborative</span>
         <div className={styles.buttonDiv}>
-            <Button title="Get Started" icon="chevron_right" onClick={() => {}} className={styles.getStartedBtn} />
+            <Button title="Get Started" icon="chevron_right" onClick={() => History.push("/faq")} className={styles.getStartedBtn} />
             <Button title="Login" icon="login" onClick={() => History.push("/auth")} className={styles.loginBtn} />
         </div>
     </div>);
