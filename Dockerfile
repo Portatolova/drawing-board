@@ -21,7 +21,7 @@ RUN rm -rf build node_modules static/node_modules
 
 # Install packages in node:14.17.3 debian environment and build app
 RUN npm run setup
-RUN npm run build-app
+RUN npm run build
 
 # Run the server
 CMD ["node", "./build/index.js"]
