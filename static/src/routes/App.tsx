@@ -186,8 +186,6 @@ class App extends Component<Props, State> {
             this.doc = await this.loadBoard(0);
         }
 
-        window.sketch = sketch.current;
-
     }
 
     componentDidUpdate(props: Props, state: State) {

@@ -43,6 +43,7 @@ async function handleEvents(socket: Socket, id: string, io: Server) {
     // Attach Events
     socket.on('draw', async (p) => {
         let canvas = await Canvas.findOne({ pos: p, boardID: id });
+        if(!canvas) { return; }
         let preview = await getPreview(canvas._id);
         io.to(id).emit("previews", { type: 1, pos: p, img: preview });
     });
