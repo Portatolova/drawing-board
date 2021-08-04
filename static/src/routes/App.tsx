@@ -342,7 +342,9 @@ class App extends Component<Props, State> {
     }
 
     async changeBoard(p: number) {
+        this.suppress = true;
         this.doc = await this.loadBoard(p);
+        this.suppress = false;
 
         this.setState({ pos: p });
     }

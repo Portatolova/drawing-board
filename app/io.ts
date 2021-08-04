@@ -48,7 +48,7 @@ async function handleEvents(socket: Socket, id: string, io: Server) {
         io.to(id).emit("previews", { type: 1, pos: p, img: preview });
     });
     socket.on('signal', (d) => io.to(id).emit('signal', d));
-    socket.on('cursor', c => socket.broadcast.emit("cursor", c));
+    socket.on('cursor', c => socket.to(id).emit("cursor", c));
     socket.on('disconnect', () => io.to(id).emit("userdc", socket.id));
 
     // Get board
@@ -109,7 +109,8 @@ export function IO(app: any) {
     io.sockets.on("connection", (socket: Socket) => {
         let id = socket.handshake.query.id;
         if(!id) { return socket.disconnect(); }
-        id = typeof id === "string" ? id : id[0]
+        id = typeof id === "string" ? id : id[0];
+        console.log(id);
         socket.join(id);
         handleEvents(socket, id, io);
     });

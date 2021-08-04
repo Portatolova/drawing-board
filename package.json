@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"PORT=443 ts-node-dev --respawn --transpile-only ./app/\" \"cd static && npm start\"",
     "setup": "npm i; cd static; npm i",
-    "generate-keys": "mkdir ./app/api/auth/keys; openssl genrsa -out ./app/api/auth/keys/private.key 2048;openssl rsa -in ./app/api/auth/keys/private.key -outform PEM -pubout -out ./app/api/auth/keys/public.key;openssl req -x509 -newkey rsa:4096 -keyout ./app/SSL/key.pem -out ./app/SSL/cert.pem -days 365 -nodes",
+    "generate-keys": "mkdir ./app/api/auth/keys; openssl genrsa -out ./app/api/auth/keys/private.key 2048 && openssl rsa -in ./app/api/auth/keys/private.key -outform PEM -pubout -out ./app/api/auth/keys/public.key && openssl req -x509 -newkey rsa:4096 -keyout ./app/SSL/key.pem -new -out ./app/SSL/cert.pem -days 365 -nodes -subj '/CN=drawingboard.cclb.io' -reqexts SAN -extensions SAN -config <(cat /System/Library/OpenSSL/openssl.cnf <(printf '[SAN] subjectAltName=DNS:drawingboard.cclb.io')) -sha256",
     "build": "rm -rf ./build && tsc && cp -R ./app/api/auth/keys ./build/api/auth/ && cp -R ./app/SSL/ ./build/SSL/ && cd static && npm run build;",
     "build-docker": "rm -rf ./build ./node_modules ./static/node_modules; docker build --platform amd64 -t 'drawing-board' .",
     "prod": "NODE_ENV=PRODUCTION node ./build/index.js"

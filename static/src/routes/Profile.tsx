@@ -9,13 +9,9 @@ import Button from "components/Button";
 
 function Profile() {
 
-    const [isCreating, setCreating] = useState(false);
-    const [newProjName, setNewProjName] = useState("");
-    const [error, setError] = useState("");
-    const [boards, setBoards] = useState<Array<any>>([]);
+    const [ui, setUI] = useState<{ username: "", email: "" }>({ username: "", email: "" });
 
     const History = useHistory();
-    const [modalState, setModalState] = useContext(ModalContext);
 
     useEffect(() => {
         let ui: any = localStorage.getItem("ui");
@@ -26,12 +22,13 @@ function Profile() {
 
         if (ui && ui.token) {
             Axios.post("/api/auth/verifyToken", { token: ui.token }).then(({ data }) => {
-                console.log('a')
                 if (!data.valid) {
                     alert("Your session has expired! Login again to continue.");
                     History.push("/auth");
                 }
-            }).catch(() => {
+                setUI({ username: ui.username, email: ui.email });
+            }).catch((err) => {
+                console.log(err);
                 alert("Your session has expired! Login again to continue.");
                 History.push("/auth");
             });
@@ -40,10 +37,6 @@ function Profile() {
         }
 
     }, []);
-
-    useEffect(() => {
-        if(!modalState.selected) { setNewProjName(""); setError("") }
-    }, [modalState]);
 
     return (<>
         <div className={styles.bg}>
@@ -56,9 +49,9 @@ function Profile() {
             <div>
                 <h1>Profile Information</h1>
                 <h3>Username:</h3>
-                <p>Portatolova</p>
+                <p>{ui.username}</p>
                 <h3>Email:</h3>
-                <p>carlvoller8@gmail.com</p>
+                <p>{ui.email}</p>
             </div>
         </div>
         <a href={`/api/auth/logout?token=${JSON.parse(localStorage.ui || "{}")?.token}`} style={{ position: 'fixed', bottom: 0, right: 0, margin: 20, color: 'grey' }}>Logout</a>
